@@ -3,18 +3,16 @@
 ?>
 
 <!DOCTYPE html>
-<?php
-	require_once 'login.php';
-?>
+<?php require 'add_patient.php'?>
 <html lang = "eng">
-	<head>
-		<title>San Carlos Health Care Management System 2023</title>
-		<meta charset = "utf-8" />
+        <head>
+        <title>San Carlos Health Care Management System 2023</title>
+		<meta charset = "UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel = "shortcut icon" href = "../images/hc.png" />
-		<link rel = "stylesheet" type = "text/css" href = "../css/bootstrap.css" />
-		<link rel = "stylesheet" type = "text/css" href = "../css/jquery.dataTables.css" />
-		<link rel = "stylesheet" type = "text/css" href = "../css/customize.css" />
+		<link rel = "shorcut icon" href = "images/hc.png" />
+		<link rel = "stylesheet" type = "text/css" href = "css/bootstrap.css" />
+		<link rel = "stylesheet" type = "text/css" href = "css/jquery.dataTables.css" />
+		<link rel = "stylesheet" type = "text/css" href = "css/customize.css" />
 		<style>
         body {
             background-color: #9ADE7B; /* Set your desired background color */
@@ -34,6 +32,10 @@
         .navbar-default .navbar-brand:focus {
             color: #ffffff; /* Set your desired navbar brand color on hover/focus */
         }
+        .form-control {
+    width: 100%; /* I-set ang lapad ng mga input fields sa 100% ng kanilang container */
+    /* Iba pang mga estilo ay maaari mo pang idagdag o baguhin depende sa iyong preference */
+}
 
         /* Add more styles as needed */
     </style>
@@ -44,7 +46,7 @@
 <div id="add_itr" class="panel panel-success">
     <div class="panel-heading">
         <label>ADD APPOINTMENT</label>
-        <button id="hide_itr" style="float:right; margin-top:-4px;" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> CLOSE</button>
+        <a href="index.php" id="hide_itr" onclick="hideElement();" style="float:right; margin-top:-4px;" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> CLOSE</a>
     </div>
     <div class="panel-body">
         <form id="form_dental" method="POST" enctype="multipart/form-data">
@@ -153,11 +155,12 @@
             </div>
             <br>
             <div class="form-inline">
-                <button class="btn btn-primary" name="save_patient"><span class="glyphicon glyphicon-save"></span> SAVE</button>
+                <button class="btn btn-primary" name="save_patient"><span class="glyphicon glyphicon-save" href="patient_login.php"></span> Register</button>
             </div>
         </form>
     </div>
-</div>
+</div>  
+
 
 	<div id = "footer">
 		<label class = "footer-title">San Carlos Health Care Management System 2023</label>

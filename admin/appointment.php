@@ -30,7 +30,7 @@
         .navbar-default .navbar-brand:focus {
             color: #ffffff; /* Set your desired navbar brand color on hover/focus */
         }
-
+		
         /* Add more styles as needed */
     </style>
 	</head>
@@ -225,7 +225,7 @@
 				<label>APPOINTMENT LIST</Label>
 			</div>
 			<div class = "panel-body">
-				<button id = "show_itr" class = "btn btn-info"><span class = "glyphicon glyphicon-plus"></span> ADD APPOINTMENT</button>
+				<!-- <button id = "show_itr" class = "btn btn-info"><span class = "glyphicon glyphicon-plus"></span> ADD APPOINTMENT</button> -->
 				<br />
 				<br />
 				<table id = "table" class = "display" width = "100%" cellspacing = "0">

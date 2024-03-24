@@ -120,8 +120,8 @@
 						<li><a href = "user.php"><i class = "glyphicon glyphicon-cog"></i> Chief Laboratory</a></li>
 					</ul>
 				</li>
-                <li><li><a href = "email.php"><i class = "glyphicon glyphicon-user"></i> Email Appointment</a></li></li>
-                <li><li><a href = "cancel_appointment.php"><i class = "glyphicon glyphicon-user"></i> Cancel Appointment</a></li></li>
+                <!-- <li><li><a href = "email.php"><i class = "glyphicon glyphicon-user"></i> Email Appointment</a></li></li>
+                <li><li><a href = "cancel_appointment.php"><i class = "glyphicon glyphicon-user"></i> Cancel Appointment</a></li></li> -->
 				<li><a href="appointment.php"><i class="glyphicon glyphicon-calendar"></i> Appointment</a></li>
 				<li><li><a href = "patient.php"><i class = "glyphicon glyphicon-user"></i> Patient</a></li></li>
 				<li><li><a href = "med.php"><i class = "glyphicon glyphicon-user"></i> Medical Certificate</a></li></li>
