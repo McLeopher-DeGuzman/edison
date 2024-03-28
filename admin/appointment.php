@@ -237,6 +237,8 @@
 							<th>Age</th>
 							<th>Address</th>
 							<th>Civil Status</th>
+							<!-- <th>Email</th>
+							<th>Password</th> -->
 							<!-- <th><center>Action</center></th> -->
 						</tr>
 					</thead>
@@ -256,7 +258,8 @@
 							<td><?php echo $fetch['age']?></td>				
 							<td><?php echo $fetch['address']?></td>
 							<td><?php echo $fetch['civil_status']?></td>
-                            <td></td>
+                            <!-- <td><?php echo $fetch['email']?></td>
+							<td><?php echo $fetch['password']?></td> -->
 							<!-- <td><center><a href = "patient.php?id=<?php echo $fetch['itr_no']?>&lastname=<?php echo $fetch['lastname']?>" class = "btn btn-sm btn-info">Book</a>  -->
 							<!-- <a href = "edit_patient.php?id=<?php echo $fetch['itr_no']?>&lastname=<?php echo $fetch['lastname']?>" class = "btn btn-sm btn-warning"><span class = "glyphicon glyphicon-pencil"></span> Update</a></center></td> -->
 						</tr>

@@ -51,107 +51,100 @@
         }
     </style>
     <script type="text/javascript">
-    window.onload = function() {
-        $("#chartContainer").CanvasJSChart({
-            title: {
-                text: "Total Patient Population <?php echo $date?>",
-                fontSize: 24
-            },
-            axisY: {
-                title: "Count"
-            },
-            legend: {
-                verticalAlign: "center",
-                horizontalAlign: "left"
-            },
-            data: [
-                {
-                    type: "column", // Changed to column chart
-                    showInLegend: true,
-                    toolTipContent: "{label} <br/> {y}",
-                    indexLabel: "{y}",
-                    dataPoints: [
-                        { label: "Fecalysis", y: <?php echo ($ffecalysis ? $ffecalysis['total'] : 0); ?>, legendText: "Fecalysis" },
-                        // { label: "Maternity", y: <?php echo ($fmaternity ? $fmaternity['total'] : 0); ?>, legendText: "Maternity" },
-                        { label: "Hematology", y: <?php echo ($fhematology ? $fhematology['total'] : 0); ?>, legendText: "Hematology" },
-                        { label: "Dental", y: <?php echo ($fdental ? $fdental['total'] : 0); ?>, legendText: "Dental" },
-                        // { label: "Xray", y: <?php echo ($fxray ? $fxray['total'] : 0); ?>, legendText: "Xray" },
-                        // { label: "Rehabilitation", y: <?php echo ($frehab ? $frehab['total'] : 0); ?>, legendText: "Rehabilitation" },
-                        { label: "Sputum", y: <?php echo ($fsputum ? $fsputum['total'] : 0); ?>, legendText: "Sputum" },
-                        { label: "Urinalysis", y: <?php echo ($furinalysis ? $furinalysis['total'] : 0); ?>, legendText: "Urinalysis" }
-                    ]
-                }
-            ]
-        });
-    }
-</script>
-
+        window.onload = function() {
+            $("#chartContainer").CanvasJSChart({
+                title: {
+                    text: "Total Patient Population <?php echo $date?>",
+                    fontSize: 24
+                },
+                axisY: {
+                    title: "Count"
+                },
+                data: [
+                    {
+                        type: "column",
+                        dataPoints: [
+                            { label: "Fecalysis", y: <?php echo ($ffecalysis ? $ffecalysis['total'] : 0); ?> },
+                            { label: "Maternity", y: <?php echo ($fmaternity ? $fmaternity['total'] : 0); ?> },
+                            { label: "Hematology", y: <?php echo ($fhematology ? $fhematology['total'] : 0); ?> },
+                            { label: "Dental", y: <?php echo ($fdental ? $fdental['total'] : 0); ?> },
+                            { label: "Xray", y: <?php echo ($fxray ? $fxray['total'] : 0); ?> },
+                            { label: "Rehabilitation", y: <?php echo ($frehab ? $frehab['total'] : 0); ?> },
+                            { label: "Sputum", y: <?php echo ($fsputum ? $fsputum['total'] : 0); ?> },
+                            { label: "Urinalysis", y: <?php echo ($furinalysis ? $furinalysis['total'] : 0); ?> }
+                        ]
+                    }
+                ]
+            });
+        }
+    </script>
 </head>
 <body>
-	<div class = "navbar navbar-default navbar-fixed-top">
-		<img src = "../images/hc.png" style = "float:left;" height = "55px" /><label class = "navbar-brand">San Carlos Health Care Management System 2023</label>
-		<?php 
-			$q = $conn->query("SELECT * FROM `admin` WHERE `admin_id` = $_SESSION[admin_id]") or die(mysqli_error());
-			$f = $q->fetch_array();
-		?>
-			<ul class = "nav navbar-right">	
-				<li class = "dropdown">
-					<a class = "user dropdown-toggle" data-toggle = "dropdown" href = "#">
-						<span class = "glyphicon glyphicon-user"></span>
-						<?php 
-							echo $f['firstname']." ".$f['lastname'];
-						?>
-						<b class = "caret"></b>
-					</a>
-				<ul class = "dropdown-menu">
-					<li>
-						<a class = "me" href = "logout.php"><i class = "glyphicon glyphicon-log-out"></i> Logout</a>
-					</li>
-				</ul>
-				</li>
-			</ul>
-	</div>
-	<div id = "sidebar">
-			<ul id = "menu" class = "nav menu">
-				<li><a href = "home.php"><i class = "glyphicon glyphicon-home"></i> Dashboard</a></li>
-				<li><a href = ""><i class = "glyphicon glyphicon-cog"></i> Accounts</a>
-					<ul>
-						<li><a href = "admin.php"><i class = "glyphicon glyphicon-cog"></i> Medical Technologist</a></li>
-						<li><a href = "user.php"><i class = "glyphicon glyphicon-cog"></i> Chief Laboratory</a></li>
-					</ul>
-				</li>
-                <!-- <li><li><a href = "email.php"><i class = "glyphicon glyphicon-user"></i> Email Appointment</a></li></li>
-                <li><li><a href = "cancel_appointment.php"><i class = "glyphicon glyphicon-user"></i> Cancel Appointment</a></li></li> -->
-				<li><a href="appointment.php"><i class="glyphicon glyphicon-calendar"></i> Appointment</a></li>
-				<li><li><a href = "patient.php"><i class = "glyphicon glyphicon-user"></i> Patient</a></li></li>
-				<li><li><a href = "med.php"><i class = "glyphicon glyphicon-user"></i> Medical Certificate</a></li></li>
-                <li><li><a href = "predict.php"><i class = "glyphicon glyphicon-user"></i> Predictive Analysis</a></li></li>
-				<li><a href = ""><i class = "glyphicon glyphicon-folder-close"></i> Sections</a>
-					<ul>
-						<li><a href = "fecalysis.php"><i class = "glyphicon glyphicon-folder-open"></i> Fecalysis</a></li>
-						<!-- <li><a href = "maternity.php"><i class = "glyphicon glyphicon-folder-open"></i> Maternity</a></li> -->
-						<li><a href = "hematology.php"><i class = "glyphicon glyphicon-folder-open"></i> Hematology</a></li>
-						<li><a href = "dental.php"><i class = "glyphicon glyphicon-folder-open"></i> Dental</a></li>
-						<!-- <li><a href = "xray.php"><i class = "glyphicon glyphicon-folder-open"></i> Xray</a></li> -->
-						<!-- <li><a href = "rehabilitation.php"><i class = "glyphicon glyphicon-folder-open"></i> Rehabilitation</a></li> -->
-						<li><a href = "sputum.php"><i class = "glyphicon glyphicon-folder-open"></i> Sputum</a></li>
-						<li><a href = "urinalysis.php"><i class = "glyphicon glyphicon-folder-open"></i> Urinalysis</a></li>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <img src="../images/hc.png" style="float:left;" height="55px" /><label class="navbar-brand">San Carlos Health Care Management System 2023</label>
+        <?php 
+            $q = $conn->query("SELECT * FROM `admin` WHERE `admin_id` = $_SESSION[admin_id]") or die(mysqli_error());
+            $f = $q->fetch_array();
+        ?>
+            <ul class="nav navbar-right">    
+                <li class="dropdown">
+                    <a class="user dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <?php 
+                            echo $f['firstname']." ".$f['lastname'];
+                        ?>
+                        <b class="caret"></b>
+                    </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="me" href="logout.php"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+                    </li>
+                </ul>
+                </li>
+            </ul>
+    </div>
+    <div id="sidebar">
+            <ul id="menu" class="nav menu">
+                <li><a href="home.php"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+                <li><a href=""><i class="glyphicon glyphicon-cog"></i> Accounts</a>
+                    <ul>
+                        <li><a href="admin.php"><i class="glyphicon glyphicon-cog"></i> Medical Technologist</a></li>
+                        <li><a href="user.php"><i class="glyphicon glyphicon-cog"></i> Chief Laboratory</a></li>
+                        <li><a href="patient_user.php"><i class="glyphicon glyphicon-cog"></i> Patient Account</a></li>
 
-					</ul>
-				</li>
-			</ul>
-	</div>
-	<div id = "content">
-		<br />
-		<br />
-		<br />
-		<div class = "well">
-			<div id="chartContainer" style="width: 100%; height: 400px"></div> 
-		</div>
-	</div>
-	<div id = "footer">
-		<label class = "footer-title">San Carlos Health Care Management System 2023</label>
-	</div>
-		
+                    </ul>
+                </li>
+                <!-- <li><li><a href="email.php"><i class="glyphicon glyphicon-user"></i> Email Appointment</a></li></li> -->
+                <!-- <li><li><a href="cancel_appointment.php"><i class="glyphicon glyphicon-user"></i> Cancel Appointment</a></li></li> -->
+                <li><a href="appointment.php"><i class="glyphicon glyphicon-calendar"></i> Appointment</a></li>
+                <li><li><a href="patient.php"><i class="glyphicon glyphicon-user"></i> Patient</a></li></li>
+                <li><li><a href="med.php"><i class="glyphicon glyphicon-user"></i> Medical Certificate</a></li></li>
+                <li><li><a href
+                = "predict.php"><i class="glyphicon glyphicon-user"></i> Predictive Analysis</a></li></li>
+                <li><a href=""><i class="glyphicon glyphicon-folder-close"></i> Sections</a>
+                    <ul>
+                        <li><a href="fecalysis.php"><i class="glyphicon glyphicon-folder-open"></i> Fecalysis</a></li>
+                        <li><a href="maternity.php"><i class="glyphicon glyphicon-folder-open"></i> Maternity</a></li>
+                        <li><a href="hematology.php"><i class="glyphicon glyphicon-folder-open"></i> Hematology</a></li>
+                        <li><a href="dental.php"><i class="glyphicon glyphicon-folder-open"></i> Dental</a></li>
+                        <li><a href="xray.php"><i class="glyphicon glyphicon-folder-open"></i> Xray</a></li>
+                        <li><a href="rehabilitation.php"><i class="glyphicon glyphicon-folder-open"></i> Rehabilitation</a></li>
+                        <li><a href="sputum.php"><i class="glyphicon glyphicon-folder-open"></i> Sputum</a></li>
+                        <li><a href="urinalysis.php"><i class="glyphicon glyphicon-folder-open"></i> Urinalysis</a></li>
+                    </ul>
+                </li>
+            </ul>
+    </div>
+    <div id="content">
+        <br />
+        <br />
+        <br />
+        <div class="well">
+            <div id="chartContainer" style="width: 100%; height: 400px"></div> 
+        </div>
+    </div>
+    <div id="footer">
+        <label class="footer-title">San Carlos Health Care Management System 2023</label>
+    </div> 
 </body>
 </html>

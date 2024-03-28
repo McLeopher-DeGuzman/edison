@@ -1,52 +1,44 @@
 <?php
-	session_start();
-	if(ISSET($_POST['login'])){
-		$email = $_POST['email'];
-		$password = $_POST['password'];
-		$conn = new mysqli("localhost", "root", "", "hcpms") or die(mysqli_error());
-		$query = $conn->query("SELECT * FROM `itr` WHERE `email` = '$email' && `password` = '$password'") or die(mysqli_error());
-		$fetch = $query->fetch_array();
-		$valid = $query->num_rows;
-		$section = $fetch['section'];	 
-			if($valid > 0){
-				if($section == "Fecalysis"){
-					$_SESSION['user_id'] = $fetch['user_id'];
-					echo("<script> location.replace(' fecalysis.php');</script>");
-				}
-				if($section == "Maternity"){
-					$_SESSION['user_id'] = $fetch['user_id'];
-					echo("<script> location.replace(' maternity.php');</script>");
-				}
-				if($section == "Hematology"){
-					$_SESSION['user_id'] = $fetch['user_id'];
-					echo("<script> location.replace(' hematology.php');</script>");
-				}
-				if($section == "Dental"){
-					$_SESSION['user_id'] = $fetch['user_id'];
-					echo("<script> location.replace(' dental.php');</script>");
-				}
-				if($section == "Xray"){
-					$_SESSION['user_id'] = $fetch['user_id'];
-					echo("<script> location.replace(' xray.php');</script>");
-				}
-				if($section == "Rehabilitation"){
-					$_SESSION['user_id'] = $fetch['user_id'];
-					echo("<script> location.replace(' rehabilitation.php');</script>");
-				}
-				if($section == "Sputum"){
-					$_SESSION['user_id'] = $fetch['user_id'];
-					echo("<script> location.replace(' sputum.php');</script>");
-				}
-				if($section == "Urinalysis"){
-					$_SESSION['user_id'] = $fetch['user_id'];
-					echo("<script> location.replace(' urinalysis.php');</script>");
-				}
-			}else{
-				echo "<script>alert('Account Does Not Exist!')</script>";
-				echo "<script>window.location = 'index.php'</script>";
-			}
-						
-		
-		}
-		$conn->close();
-	
+    session_start(); // Start the session
+
+    if(isset($_POST['login'])){   
+        if(isset($_POST['login_email']) && isset($_POST['login_password'])){ // Check if email and password are set
+            $email = $_POST['login_email']; 
+            $password = $_POST['login_password'];
+
+            // Create a new mysqli connection
+            $conn = new mysqli("localhost", "root", "", "hcpms");
+
+            // Check if connection was successful
+            if($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            // Prepare and bind the SELECT statement to prevent SQL injection
+            $stmt = $conn->prepare("SELECT * FROM `patient` WHERE `email` = ? AND `password` = ?");
+            $stmt->bind_param("ss", $email, $password); // Bind parameters
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            // Check if there's a match for the provided email and password
+            if($result->num_rows == 1){
+                // Authentication successful, set session variables
+                $_SESSION['email'] = $email;
+                $_SESSION['logged_in'] = true;
+
+                // Redirect to patient dashboard after successful login
+                header("Location: home.php");
+                exit();
+            } else {
+                // Authentication failed, display an error message
+                echo "<script>alert('Invalid email or password')</script>";
+                echo "<script>window.location='index.php'</script>";
+                exit;
+            }
+
+            // Close the prepared statement and database connection
+            $stmt->close();
+            $conn->close();
+        }
+    }
+?>
