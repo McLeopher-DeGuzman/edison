@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2016 at 03:56 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.6.24
+-- Generation Time: Mar 28, 2024 at 02:30 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -33,14 +34,14 @@ CREATE TABLE `admin` (
   `firstname` varchar(20) NOT NULL,
   `middlename` varchar(20) NOT NULL,
   `lastname` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`admin_id`, `username`, `password`, `firstname`, `middlename`, `lastname`) VALUES
-(2, 'admin', 'admin', 'Medical Technologist', '', '');
+(5, 'admin', 'admin', 'admin', '', '');
 
 -- --------------------------------------------------------
 
@@ -87,7 +88,17 @@ CREATE TABLE `birthing` (
   `user_id` varchar(11) NOT NULL,
   `month` varchar(10) NOT NULL,
   `year` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cancelappointment`
+--
+
+CREATE TABLE `cancelappointment` (
+  `Sample` varchar(20) NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -103,7 +114,37 @@ CREATE TABLE `complaints` (
   `itr_no` varchar(50) NOT NULL,
   `section` varchar(20) NOT NULL,
   `status` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `complaints`
+--
+
+INSERT INTO `complaints` (`com_id`, `date`, `complaints`, `remark`, `itr_no`, `section`, `status`) VALUES
+(1, '08/04/2023', 'wewe', 'ewe', '1', 'Dental', 'Done'),
+(2, '10/08/2023', 'ffluifykgui', '', '2', 'Dental', 'Pending'),
+(3, '10/12/2023', 'you1wdiohwe;oidj', 'wfqkwjednlkwe', '', 'Dental', 'Done'),
+(4, '10/12/2023', 'wefqwe', 'whwl', '3', 'Dental', 'Done'),
+(5, '11/09/2023', '', '', '', 'Xray', 'Pending'),
+(6, '11/10/2023', 'ndclancsasdsf', 'dsfvfdgbd', '2', 'Rehabilitation', 'Done'),
+(7, '11/10/2023', 'dfgihvjoaihdfi', 'wkjfwopfjwioep', '4', 'Rehabilitation', 'Done'),
+(8, '11/10/2023', 'kaso;ne;cwec', 'sduhqjoldjqwouxq', '4', 'Rehabilitation', 'Done'),
+(9, '11/10/2023', 'wbvnoidcnai', 'asoicuanicsnc', '5', 'Fecalysis', 'Done'),
+(10, '11/16/2023', 'Ansakit so ngipen', 'Pangal', '1231', 'Dental', 'Done'),
+(11, '11/18/2023', 'Taena kailangan yung rehab pero pinapatanggal sa amin hahahaha paano ako maaadik niyan sayo :)))', '', '3', 'Dental', 'Pending'),
+(12, '03/18/2024', 'Tooth ache', 'antibiotics', '6', 'Dental', 'Done'),
+(13, '03/18/2024', 'rrsfc', 'tooth ache', '6', 'Dental', 'Pending'),
+(14, '03/18/2024', 'skvjs', '12345', '6', 'Fecalysis', 'Pending'),
+(15, '03/19/2024', 'teeth', 'ada', '2', 'Dental', 'Pending'),
+(16, '03/19/2024', 'wr', 'wwrw', '1', 'Dental', 'Done'),
+(17, '03/19/2024', '', '', '1', 'Fecalysis', 'Pending'),
+(18, '03/19/2024', 'ad', 'a', '', 'Dental', 'Pending'),
+(19, '03/19/2024', 'weqeq', 'qq', '', 'Dental', 'Pending'),
+(20, '03/19/2024', 'adaa', 'qwerty', '', 'Fecalysis', 'Pending'),
+(21, '03/19/2024', '', '', '', 'Dental', 'Pending'),
+(22, '03/19/2024', '', 'add', '1', 'Dental', 'Pending'),
+(23, '03/19/2024', 'wew', '', '1', 'Dental', 'Pending'),
+(24, '03/19/2024', 'ad', 'medical', '', 'Dental', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -120,7 +161,19 @@ CREATE TABLE `dental` (
   `user_id` int(11) NOT NULL,
   `month` varchar(10) NOT NULL,
   `year` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `dental`
+--
+
+INSERT INTO `dental` (`dental_no`, `date`, `dentist`, `tooth`, `itr_no`, `user_id`, `month`, `year`) VALUES
+(1, '2023-08-04', 'Dr. Machete Lazada', 2, '1', 1, 'Aug', '2023'),
+(2, '2023-10-12', 'Dr. Machete Lazada', 4, '3', 1, 'Oct', '2023'),
+(3, '2023-11-16', 'Dr. Machete Lazada', 99, '', 9, 'Nov', '2023'),
+(4, '2023-11-16', 'Dr. Machete Lazada', 3, '1231', 10, 'Nov', '2023'),
+(5, '2024-03-18', 'Dr. Evangeline Martinez', 2, '6', 11, 'Mar', '2024'),
+(6, '2024-03-19', 'Dr. Evangeline Martinez', 12, '1', 11, 'Mar', '2024');
 
 -- --------------------------------------------------------
 
@@ -153,7 +206,14 @@ CREATE TABLE `fecalisys` (
   `user_id` int(11) NOT NULL,
   `month` varchar(10) NOT NULL,
   `year` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `fecalisys`
+--
+
+INSERT INTO `fecalisys` (`fecalisys_id`, `date_of_request`, `requested_by`, `color`, `consistency`, `pus_cells`, `RBC`, `fat_globules`, `occult_blood`, `others_chem`, `ova`, `larva`, `adult_forms`, `cyst`, `trophozoites`, `others_pro`, `remarks`, `date_reported`, `pathologist`, `medical_technologist`, `itr_no`, `user_id`, `month`, `year`) VALUES
+(1, '2023-11-10', 'Trial 1', 'red', 'dnovs', 'ascad', 'dcad', 'adcadc', 'ascadc', '', 'acad', 'dsvsddcsdcdsdsc', 'dvfdvadddcad', 'adcad', 'dcsdc', '', 'dcuvbIAUHdooia', '2023-11-10', 'a;jklbsdclan', 'acklbna;onc', '5', 8, 'Nov', '2023');
 
 -- --------------------------------------------------------
 
@@ -189,7 +249,7 @@ CREATE TABLE `hematology` (
   `user_id` int(50) NOT NULL,
   `month` varchar(20) NOT NULL,
   `year` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -215,7 +275,15 @@ CREATE TABLE `itr` (
   `RR` varchar(10) NOT NULL,
   `WT` varchar(10) NOT NULL,
   `HT` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `itr`
+--
+
+INSERT INTO `itr` (`itr_no`, `family_no`, `phil_health_no`, `firstname`, `middlename`, `lastname`, `birthdate`, `age`, `address`, `civil_status`, `gender`, `BP`, `TEMP`, `PR`, `RR`, `WT`, `HT`) VALUES
+('1', '', '12322', 'TEAST', 'dd', 'wd', '03/02/2019', 12, 'sdhh', 'Single', 'Male', '123', '12&deg;C', '23', '23', '32kg', '32'),
+('2', '', '1288', 'iavn', '', 'duma', '03/30/2024', 37, 'batang', 'Single', 'Male', '123', '32&deg;C', '23', '2', '32kg', '43');
 
 -- --------------------------------------------------------
 
@@ -276,7 +344,30 @@ CREATE TABLE `maternity_patient` (
   `user_id` int(50) NOT NULL,
   `month` varchar(20) NOT NULL,
   `year` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `patient`
+--
+
+CREATE TABLE `patient` (
+  `patient_id` int(11) NOT NULL,
+  `fullName` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `patient`
+--
+
+INSERT INTO `patient` (`patient_id`, `fullName`, `email`, `password`) VALUES
+(4, 'mc c de guzman', '20_UCS_012@gov.ph', '12345'),
+(5, '', '20_UCS_01@gov.ph', '12345'),
+(6, '', '20_UCS_012@gov.ph1', '12345'),
+(7, 'mc c de guzman', '20_UCS_012@gov.ph12', '12345');
 
 -- --------------------------------------------------------
 
@@ -322,7 +413,7 @@ CREATE TABLE `prenatal` (
   `user_id` int(11) NOT NULL,
   `month` varchar(10) NOT NULL,
   `year` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -343,7 +434,7 @@ CREATE TABLE `radiological` (
   `user_id` int(11) NOT NULL,
   `month` varchar(10) NOT NULL,
   `year` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -364,7 +455,16 @@ CREATE TABLE `rehabilitation` (
   `user_id` int(11) NOT NULL,
   `month` varchar(10) NOT NULL,
   `year` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `rehabilitation`
+--
+
+INSERT INTO `rehabilitation` (`rehab_id`, `diagnosis`, `type_of_disability`, `subjective`, `objective`, `assessment`, `plan`, `date`, `itr_no`, `user_id`, `month`, `year`) VALUES
+(1, 'ghlkhl', 'bvcvkjlblbn', 'gcv,kjbl', 'hfcvb.lkh', 'gkugil', 'jfkg.;on.on', '11/10/2023', '4', 7, 'Nov', '2023'),
+(2, 'oidscpoac', 'qwdboiqbdwq', 'dertrber', 'wfgretsrvsrfwrgtyr', 'rgetwr', 'wrgrthwrsgrwf', '11/10/2023', '4', 7, 'Nov', '2023'),
+(3, 'hdfkkl', 'nghdfgkb', 'gxckjbjb', 'hdfklbnk', 'jfglhiuhlhn', 'jtfgkugigol', '11/10/2023', '2', 7, 'Nov', '2023');
 
 -- --------------------------------------------------------
 
@@ -404,7 +504,7 @@ CREATE TABLE `sputum` (
   `user_id` int(11) NOT NULL,
   `month` varchar(10) NOT NULL,
   `year` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -437,7 +537,7 @@ CREATE TABLE `urinalysis` (
   `user_id` int(11) NOT NULL,
   `month` varchar(10) NOT NULL,
   `year` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -453,7 +553,19 @@ CREATE TABLE `user` (
   `middlename` varchar(20) NOT NULL,
   `lastname` varchar(20) NOT NULL,
   `section` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `username`, `password`, `firstname`, `middlename`, `lastname`, `section`) VALUES
+(7, 'trial', 'trial', 'trial', 't', 'trial', 'Fecalysis'),
+(8, 'trial1', 'trial1', 'trial1', '', 'trial1', 'Hematology'),
+(9, 'testtest', 'testtest', 'testtest', 'testtest', 'testtest', 'Urinalysis'),
+(11, 'mc', '12345', 'qwerty', '', 'ss', 'Dental'),
+(12, 'erwin', '12345', 'erwin', 'erwin', 'erwin', 'Fecalysis'),
+(16, '20_UCS_012@gov.ph', '12345', 'ad', '', 'ad', 'Dental');
 
 --
 -- Indexes for dumped tables
@@ -470,6 +582,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `birthing`
   ADD PRIMARY KEY (`birth_id`);
+
+--
+-- Indexes for table `cancelappointment`
+--
+ALTER TABLE `cancelappointment`
+  ADD PRIMARY KEY (`Sample`);
 
 --
 -- Indexes for table `complaints`
@@ -506,6 +624,12 @@ ALTER TABLE `itr`
 -- Indexes for table `maternity_patient`
 --
 ALTER TABLE `maternity_patient`
+  ADD PRIMARY KEY (`patient_id`);
+
+--
+-- Indexes for table `patient`
+--
+ALTER TABLE `patient`
   ADD PRIMARY KEY (`patient_id`);
 
 --
@@ -552,67 +676,87 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `birthing`
 --
 ALTER TABLE `birthing`
   MODIFY `birth_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `com_id` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `com_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
 --
 -- AUTO_INCREMENT for table `dental`
 --
 ALTER TABLE `dental`
-  MODIFY `dental_no` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `dental_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `fecalisys`
 --
 ALTER TABLE `fecalisys`
-  MODIFY `fecalisys_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `fecalisys_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `hematology`
 --
 ALTER TABLE `hematology`
   MODIFY `hem_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `maternity_patient`
 --
 ALTER TABLE `maternity_patient`
   MODIFY `patient_id` int(50) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `patient`
+--
+ALTER TABLE `patient`
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `prenatal`
 --
 ALTER TABLE `prenatal`
   MODIFY `prenatal_no` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `radiological`
 --
 ALTER TABLE `radiological`
   MODIFY `rad_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `rehabilitation`
 --
 ALTER TABLE `rehabilitation`
-  MODIFY `rehab_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `rehab_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `sputum`
 --
 ALTER TABLE `sputum`
   MODIFY `sputum_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `urinalysis`
 --
 ALTER TABLE `urinalysis`
   MODIFY `urinalysis_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
