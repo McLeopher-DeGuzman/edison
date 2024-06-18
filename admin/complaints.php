@@ -106,7 +106,7 @@
 						<label for = "itr_no">Individual Treatment Record No:</label>
 						<input class = "form-control" value = "<?php echo $f['itr_no'] ?>" disabled = "disabled" size = "3" type = "number" name = "itr_no">
 					</div>
-					<div style = "float:right;" class = "form-inline">
+					<!-- <div style = "float:right;" class = "form-inline">
 						<label for = "family_no">Family no:</label>
 						<input class = "form-control" size = "3" value = "
 							<?php 
@@ -116,7 +116,7 @@
 									echo $f['family_no'];
 								}	
 							?>" disabled = "disabled" type = "number" name = "family_no">
-					</div>
+					</div> -->
 					<br />
 					<br />
 					<br />
@@ -131,24 +131,24 @@
 						<input class = "form-control" name = "lastname" value = "<?php echo $f['lastname']?>" disabled = "disabled" type = "text" required = "required">
 					</div>
 					<br />
+
 					<div class = "form-group">
-					<label for="complaints">Complaints:</label>
+					<label for="complaints">Subjectives:</label>
+					<textarea style="resize:none;" name="complaints" class="form-control"></textarea>
+					<br />
+					<label for="remark">Objectives:</label>
+					<textarea style="resize:none;" name="remark" class="form-control"></textarea>
+					<br />
+					<label for="ass">Assessment:</label>
+					<textarea style="resize:none;" name="ass" class="form-control"></textarea>
+					<br />
+					<label for="plan">Plan:</label>
+					<textarea style="resize:none;" name="plan" class="form-control"></textarea>
+					<br />
+					<label for="rx">Rx:</label>
+					<textarea style="resize:none;" name="rx" class="form-control"></textarea>
+					<br />
 
-					<textarea style="resize:none;" name="complaints" id="complaints" class="form-control"></textarea>
-						<br />
-						
-						<label>Doctor's Order:</label>
-						<select name="remarks" id="remarks" class="form-control">
-    <option value="select">Select order</option>
-    <option value="medical">Medical</option>
-    <option value="pediatrics">Pediatrics</option>
-    <option value="surgery">Surgery</option>
-	<option value="obsterics">Obsterics</option>
-    <option value="dental">Dental</option>
-
-</select>
-						<!-- <textarea style = "resize:none;" name = "remarks" class = "form-control"></textarea> -->
-						<br />
 						<label>Section:</label>
 						<select name = "section" class = "form-control" required = "required">
 								<option value = "">--Please select an option--</option>
@@ -184,19 +184,34 @@
 		</div>
 		<button class = "btn btn-primary" id = "show_com"><i class = "glyphicon glyphicon-plus">ADD</i></button>
 		<div class = "panel-body">
-			<?php
-				$q1 = $conn->query("SELECT * FROM `itr` WHERE `itr_no` = '$_GET[id]'") or die(mysqli_error());
-				$f1 = $q1->fetch_array();
-				$q = $conn->query("SELECT * FROM `complaints` WHERE `itr_no` = '$_GET[id]' ORDER BY `status` DESC") or die(mysqli_error());	
-					while($f = $q->fetch_array()){
-						if($f['status'] == "Done"){
-							echo "<label style = 'color:#3399f3;'>".$f['section']."</label>"."<textarea  style = 'resize:none;' disabled = 'disabled' class = 'form-control'>".$f['remark']."</textarea>".$f['date']."<label style = 'float:right; color:red;'>Done</label><br /><br /><hr style = 'border:1px solid #eee;' />";
-						}
-						if($f['status'] == "Pending"){
-							echo "<label style = 'color:#3399f3;'>".$f['section']."</label>"."<textarea  style = 'resize:none;' disabled = 'disabled' class = 'form-control'>".$f['remark']."</textarea>".$f['date']."<br /><br /><hr style = 'border:1px solid #eee;' />";
-						}
-					}
-				?>
+		<?php
+    $q1 = $conn->query("SELECT * FROM `itr` WHERE `itr_no` = '$_GET[id]'") or die(mysqli_error());
+    $f1 = $q1->fetch_array();
+    $q = $conn->query("SELECT * FROM `complaints` WHERE `itr_no` = '$_GET[id]' ORDER BY `status` DESC") or die(mysqli_error());    
+    while($f = $q->fetch_array()){
+        if($f['status'] == "Done"){
+            echo "<label style='color:#3399f3;'>Section: </label>" . $f['section'] . "<br>";
+            echo "<label style='color:#3399f3;'>Complaints: </label>" . "<textarea  style='resize:none;' disabled='disabled' class='form-control'>" . $f['complaints'] . "</textarea><br>";
+			echo "<label style='color:#3399f3;'>Objective: </label>" . "<textarea  style='resize:none;' disabled='disabled' class='form-control'>" . $f['remark'] . "</textarea><br>";
+            echo "<label style='color:#3399f3;'>Assessment: </label>" . "<textarea  style='resize:none;' disabled='disabled' class='form-control'>" . $f['ass'] . "</textarea><br>";
+            echo "<label style='color:#3399f3;'>Plan: </label>" . "<textarea  style='resize:none;' disabled='disabled' class='form-control'>" . $f['plan'] . "</textarea><br>";
+            echo "<label style='color:#3399f3;'>Rx: </label>" . "<textarea  style='resize:none;' disabled='disabled' class='form-control'>" . $f['rx'] . "</textarea><br>";
+            echo "<label style='color:#3399f3;'>Date: </label>" . $f['date'] . "<label style='float:right; color:red;'>Done</label><br /><br /><hr style='border:1px solid #eee;' />";
+        }
+        if($f['status'] == "Pending"){
+            echo "<label style='color:#3399f3;'>Section: </label>" . $f['section'] . "<br>";
+            echo "<label style='color:#3399f3;'>Complaints: </label>" . "<textarea  style='resize:none;' disabled='disabled' class='form-control'>" . $f['complaints'] . "</textarea><br>";
+			echo "<label style='color:#3399f3;'>Objective: </label>" . "<textarea  style='resize:none;' disabled='disabled' class='form-control'>" . $f['remark'] . "</textarea><br>";
+            echo "<label style='color:#3399f3;'>Assessment: </label>" . "<textarea  style='resize:none;' disabled='disabled' class='form-control'>" . $f['ass'] . "</textarea><br>";
+            echo "<label style='color:#3399f3;'>Plan: </label>" . "<textarea  style='resize:none;' disabled='disabled' class='form-control'>" . $f['plan'] . "</textarea><br>";
+            echo "<label style='color:#3399f3;'>Rx: </label>" . "<textarea  style='resize:none;' disabled='disabled' class='form-control'>" . $f['rx'] . "</textarea><br>";
+            echo "<label style='color:#3399f3;'>Date: </label>" . $f['date'] . "<br /><br /><hr style='border:1px solid #eee;' />";
+        }
+    }
+?>
+
+
+				
 		</div>
 	</div>
 	<div id = "footer">

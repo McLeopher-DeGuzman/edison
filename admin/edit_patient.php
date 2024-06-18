@@ -105,10 +105,10 @@
 						<label for = "itr_no">Individual Treatment Record No:</label>
 						<input class = "form-control" value = "<?php echo $f['itr_no'] ?>" disabled = "disabled" size = "3" type = "number" name = "itr_no">
 					</div>
-					<div style = "float:right;" class = "form-inline">
+					<!-- <div style = "float:right;" class = "form-inline">
 						<label for = "family_no">Family no:</label>
 						<input class = "form-control" size = "3" value = "<?php echo $f['family_no']?>" type = "number" name = "family_no">
-					</div>
+					</div> -->
 					<br />
 					<br />
 					<br />
@@ -217,9 +217,12 @@
 						<input class = "form-control" name = "ht"type = "text" value = "<?php echo htmlspecialchars($f['HT'])?>" required = "required">
 					</div>
 					<br />
-					<div class = "form-inline">
-						<button class = "btn btn-warning" name = "edit_patient"><span class = "glyphicon glyphicon-pencil"></span> SAVE</button>
-					</div>
+					<div class="form-inline">
+    <button class="btn btn-primary" name="edit_patient">
+        <span class="glyphicon glyphicon-pencil"></span> SAVE
+    </button>
+</div>
+
 					<?php require_once 'edit_query.php' ?>
 				</form>
 			</div>	

@@ -5,20 +5,16 @@
     $conn = new mysqli("localhost", "root", "", "hcpms") or die(mysqli_error());
     $qfecalysis = $conn->query("SELECT COUNT(*) as total FROM `fecalisys` WHERE `year` = '$date'");
     $ffecalysis = $qfecalysis->fetch_array();
-    $qmaternity = $conn->query("SELECT COUNT(*) as total FROM `birthing` WHERE `year` = '$date'");
-    $fmaternity = $qmaternity->fetch_array();
     $qhematology = $conn->query("SELECT COUNT(*) as total FROM `hematology` WHERE `year` = '$date'");
     $fhematology = $qhematology->fetch_array();
     $qdental = $conn->query("SELECT COUNT(*) as total FROM `dental` WHERE `year` = '$date'");
     $fdental = $qdental->fetch_array();
-    $qxray = $conn->query("SELECT COUNT(*) as total FROM `radiological` WHERE `year` = '$date'");
-    $fxray = $qxray->fetch_array();
-    $qrehab = $conn->query("SELECT COUNT(*) as total FROM `rehabilitation` WHERE `year` = '$date'");
-    $frehab = $qrehab->fetch_array();
     $qsputum = $conn->query("SELECT COUNT(*) as total FROM `sputum` WHERE `year` = '$date'");
     $fsputum = $qsputum->fetch_array();
     $qurinalysis = $conn->query("SELECT COUNT(*) as total FROM `urinalysis` WHERE `year` = '$date'");
     $furinalysis = $qurinalysis->fetch_array();
+    $qpatients = $conn->query("SELECT COUNT(*) as total FROM `patient`"); // Count patients
+    $fpatients = $qpatients->fetch_array(); // Fetch patients count
 ?>
 <html lang="eng">
 <head>
@@ -30,7 +26,6 @@
     <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.css" />
     <link rel="stylesheet" type="text/css" href="../css/customize.css" />
     <?php require 'script.php'?>
-    <script src="../js/jquery.canvasjs.min.js"></script>
     <style>
         body {
             background-color: #9ADE7B;
@@ -49,39 +44,27 @@
         .navbar-default .navbar-brand:focus {
             color: #ffffff;
         }
-    </style>
-    <script type="text/javascript">
-        window.onload = function() {
-            $("#chartContainer").CanvasJSChart({
-                title: {
-                    text: "Total Patient Population <?php echo $date?>",
-                    fontSize: 24
-                },
-                axisY: {
-                    title: "Count"
-                },
-                data: [
-                    {
-                        type: "column",
-                        dataPoints: [
-                            { label: "Fecalysis", y: <?php echo ($ffecalysis ? $ffecalysis['total'] : 0); ?> },
-                            { label: "Maternity", y: <?php echo ($fmaternity ? $fmaternity['total'] : 0); ?> },
-                            { label: "Hematology", y: <?php echo ($fhematology ? $fhematology['total'] : 0); ?> },
-                            { label: "Dental", y: <?php echo ($fdental ? $fdental['total'] : 0); ?> },
-                            { label: "Xray", y: <?php echo ($fxray ? $fxray['total'] : 0); ?> },
-                            { label: "Rehabilitation", y: <?php echo ($frehab ? $frehab['total'] : 0); ?> },
-                            { label: "Sputum", y: <?php echo ($fsputum ? $fsputum['total'] : 0); ?> },
-                            { label: "Urinalysis", y: <?php echo ($furinalysis ? $furinalysis['total'] : 0); ?> }
-                        ]
-                    }
-                ]
-            });
+
+        .section-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
         }
-    </script>
+        <style>
+    /* Define hover effect */
+    .chart {
+    transition: opacity 0.3s ease; /* Add transition effect */
+}
+
+.chart:hover {
+    opacity: 0.8; /* Reduce opacity on hover */
+}
+
+</style>
+    </style>
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
-        <img src="../images/hc.png" style="float:left;" height="55px" /><label class="navbar-brand">San Carlos Health Care Management System 2023</label>
+        <img src="../images/hc.png" style="float:center;" height="55px" /><label class="navbar-brand">San Carlos Health Care Management System</label>
         <?php 
             $q = $conn->query("SELECT * FROM `admin` WHERE `admin_id` = $_SESSION[admin_id]") or die(mysqli_error());
             $f = $q->fetch_array();
@@ -114,21 +97,14 @@
 
                     </ul>
                 </li>
-                <!-- <li><li><a href="email.php"><i class="glyphicon glyphicon-user"></i> Email Appointment</a></li></li> -->
-                <!-- <li><li><a href="cancel_appointment.php"><i class="glyphicon glyphicon-user"></i> Cancel Appointment</a></li></li> -->
                 <li><a href="appointment.php"><i class="glyphicon glyphicon-calendar"></i> Appointment</a></li>
-                <li><li><a href="patient.php"><i class="glyphicon glyphicon-user"></i> Patient</a></li></li>
-                <li><li><a href="med.php"><i class="glyphicon glyphicon-user"></i> Medical Certificate</a></li></li>
-                <li><li><a href
-                = "predict.php"><i class="glyphicon glyphicon-user"></i> Predictive Analysis</a></li></li>
+                <li><a href="patient.php"><i class="glyphicon glyphicon-user"></i> Patient</a></li>
+                <li><a href="med.php"><i class="glyphicon glyphicon-user"></i> Medical Certificate</a></li>
                 <li><a href=""><i class="glyphicon glyphicon-folder-close"></i> Sections</a>
                     <ul>
                         <li><a href="fecalysis.php"><i class="glyphicon glyphicon-folder-open"></i> Fecalysis</a></li>
-                        <li><a href="maternity.php"><i class="glyphicon glyphicon-folder-open"></i> Maternity</a></li>
                         <li><a href="hematology.php"><i class="glyphicon glyphicon-folder-open"></i> Hematology</a></li>
                         <li><a href="dental.php"><i class="glyphicon glyphicon-folder-open"></i> Dental</a></li>
-                        <li><a href="xray.php"><i class="glyphicon glyphicon-folder-open"></i> Xray</a></li>
-                        <li><a href="rehabilitation.php"><i class="glyphicon glyphicon-folder-open"></i> Rehabilitation</a></li>
                         <li><a href="sputum.php"><i class="glyphicon glyphicon-folder-open"></i> Sputum</a></li>
                         <li><a href="urinalysis.php"><i class="glyphicon glyphicon-folder-open"></i> Urinalysis</a></li>
                     </ul>
@@ -139,8 +115,43 @@
         <br />
         <br />
         <br />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
         <div class="well">
-            <div id="chartContainer" style="width: 100%; height: 400px"></div> 
+            <div class="text-center">
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="glyphicon glyphicon-user section-icon" style="color: green;"></span>
+                    <p>Patient Account: <?php echo $fpatients ? $fpatients['total'] : 0; ?></p> <!-- Display patient count -->
+                </div>
+                <div class="col-md-2">
+                    <span class="glyphicon glyphicon-user section-icon" style="color: red;"></span>
+                    <canvas id="fecalysisChart" width="100" height="100"></canvas>
+                    <p>Fecalysis</p>
+                </div>
+                <div class="col-md-2">
+                    <span class="glyphicon glyphicon-user section-icon" style="color: blue;"></span>
+                    <canvas class="chart" id="hematologyChart" width="100" height="100"></canvas>
+                    <p>Hematology</p>
+                </div>
+                <div class="col-md-2">
+                    <span class="glyphicon glyphicon-user section-icon" style="color: green;"></span>
+                    <canvas class="chart" id="dentalChart" width="100" height="100"></canvas>
+                    <p>Dental</p>
+                </div>
+                <div class="col-md-2">
+                    <span class="glyphicon glyphicon-user section-icon" style="color: orange;"></span>
+                    <canvas class="chart" id="sputumChart" width="100" height="100"></canvas>
+                    <p>Sputum</p>
+                </div>
+                <div class="col-md-2">
+                    <span class="glyphicon glyphicon-user section-icon" style="color: purple;"></span>
+                    <canvas class="chart" id="urinalysisChart" width="100" height="100"></canvas>
+                    <p>Urinalysis</p>
+                </div>
+</div>
+
+            </div>
         </div>
     </div>
     <div id="footer">
@@ -148,3 +159,71 @@
     </div> 
 </body>
 </html>
+<script>
+    // Get all canvas elements with class "chart"
+    var charts = document.querySelectorAll('.chart');
+
+    // Add mouseover and mouseout event listeners to each canvas
+    charts.forEach(function(chart) {
+        chart.addEventListener('mouseover', function() {
+            this.style.opacity = '0.8'; // Change opacity on hover
+        });
+        chart.addEventListener('mouseout', function() {
+            this.style.opacity = '1'; // Reset opacity on mouseout
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#fecalysisChart').click(function() {
+            drawChart('fecalysisChart', 'Fecalysis Chart', <?php echo $ffecalysis ? $ffecalysis['total'] : 0; ?>);
+        });
+        
+        $('#hematologyChart').click(function() {
+            drawChart('hematologyChart', 'Hematology Chart', <?php echo $fhematology ? $fhematology['total'] : 0; ?>);
+        });
+        
+        $('#dentalChart').click(function() {
+            drawChart('dentalChart', 'Dental Chart', <?php echo $fdental ? $fdental['total'] : 0; ?>);
+        });
+        
+        $('#sputumChart').click(function() {
+            drawChart('sputumChart', 'Sputum Chart', <?php echo $fsputum ? $fsputum['total'] : 0; ?>);
+        });
+        
+        $('#urinalysisChart').click(function() {
+            drawChart('urinalysisChart', 'Urinalysis Chart', <?php echo $furinalysis ? $furinalysis['total'] : 0; ?>);
+        });
+    });
+
+    function drawChart(canvasId, title, data) {
+        var ctx = document.getElementById(canvasId).getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Total Complaints'],
+                datasets: [{
+                    label: title,
+                    data: [data],
+                    backgroundColor: 'rgba(0, 100, 0, 0.2)', // Dark green background
+borderColor: 'rgba(0, 100, 0, 1)', // Solid dark green border
+
+
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false // Hide the legend
+                    }
+                }
+            }
+        });
+    }
+</script>

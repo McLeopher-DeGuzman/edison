@@ -137,11 +137,14 @@
 				<table id = "table" class = "display" width = "100%" cellspacing = "0">
 					<thead>
 						<tr>
+							<th>Phone Number</th>
 							<th>Username</th>
 							<th>Password</th>
 							<th>Name</th>
+							<th>date and time</th>
+							<th>Action</th>
 							<!-- <th>Section</th> -->
-							<th><center>Action</center></th>
+							<!-- <th><center>Action</center></th> -->
 						</tr>
 					</thead>
 					<tbody>
@@ -150,10 +153,20 @@
 						$query = $conn->query("SELECT * FROM `patient` ORDER BY `patient_id` DESC") or die(mysqli_error());
 						while($fetch = $query->fetch_array()){
 					?>
-						<tr>
+						<tr>	
+							<td><?php echo $fetch['phone_number']?></td>
 							<td><?php echo $fetch['email']?></td>
 							<td><?php echo md5($fetch['password'])?></td>
-                            <td><?php echo $fetch['fullName']?></td>
+                            <td><?php echo $fetch['first_name']?></td>
+							<!-- <td><?php echo $fetch['middle_name']?></td>
+							<td><?php echo $fetch['last_name']?></td> -->
+							<td><?php echo $fetch['date_time']?></td>
+							<td>
+    <a href="delete_patient.php?id=<?php echo $fetch['patient_id']; ?>" onclick="return confirm('Are you sure you want to delete this record?');" class="btn btn-sm btn-danger">
+        <i class="glyphicon glyphicon-remove"></i> Delete
+    </a>
+</td>
+
 
 							<!-- <td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
 							<td><?php echo $fetch['section']?></td> -->

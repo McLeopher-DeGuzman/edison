@@ -1,37 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="eng">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Registration</title>
+    <title>San Carlos Health Care Management System 2023</title>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="images/hc.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/customize.css" />
+    <style>
+        body {
+            background-color: #9ADE7B; /* Set your desired background color */
+        }
+
+        /* You can customize other styles as needed */
+        .navbar-default {
+            background-color: #508D69; /* Set your desired navbar color */
+            border-color: #9ADE7B;
+        }
+
+        .navbar-default .navbar-brand {
+            color: #ffffff; /* Set your desired navbar brand color */
+        }
+
+        .navbar-default .navbar-brand:hover,
+        .navbar-default .navbar-brand:focus {
+            color: #ffffff; /* Set your desired navbar brand color on hover/focus */
+        }
+
+        /* Add more styles as needed */
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Registration</h2>
-        <form action="register.php" method="post">
-            <div class="form-group">
-                <label for="register_name">Full Name:</label>
-                <input type="text" class="form-control" id="register_name" name="register_name" required>
-            </div>
-            <div class="form-group">
-                <label for="register_email">Email:</label>
-                <input type="email" class="form-control" id="register_email" name="register_email" required>
-            </div>
-            <div class="form-group">
-                <label for="register_password">Password:</label>
-                <input type="password" class="form-control" id="register_password" name="register_password" required>
-            </div>
-            <button type="submit" class="btn btn-success" name="register">Register</button>
-        </form>
-
-        <div class="mt-4">
-            <p>Already have an account? <a href="index.php">Login here</a>.</p>
-        </div>
+<div class="navbar navbar-default navtop">
+    <img src="images/hc.png" style="float:left;" height="55px" />
+    <label class="navbar-brand">San Carlos Health Care Management System 2023</label>
+</div>
+<div id="sidelogin">
+<form action="register.php" enctype="multipart/form-data" method="POST">
+    <div style="text-align: center;">
+        <label style="margin-left: 5%; color: black; background-color: " class="lbllogin"><h1>REGISTER AS PATIENT</h1></label>
     </div>
+    <br/>
+    <hr style="border:4 solid black;">
+    <br/>
+    <div class="form-group">
+        <label for="fname">First Name</label>
+        <input class="form-control" type="text" name="fname" id="fname" required="required"/>
+    </div>
+    
+    <div class="form-group">
+        <label for="mname">Middle Name</label>
+        <input class="form-control" type="text" name="mname" id="mname" required="required"/>
+    </div>
+    
+    <div class="form-group">
+        <label for="lname">Last Name</label>
+        <input class="form-control" type="text" name="lname" id="lname" required="required"/>
+    </div>
+    
+    <div class="form-group">
+        <label for="register_email">Email</label>
+        <input class="form-control" type="email" name="register_email" id="register_email"  required="required"/>
+    </div>
+    
+    <div class="form-group">
+        <label for="phone_number">Phone Number</label>
+        <input class="form-control" type="tel" name="phone_number" id="phone_number"  required="required" value="+63"/>
+    </div>
+    
+    <div class="form-group">
+        <label for="register_password">Password</label>
+        <input class="form-control" type="password" name="register_password" id="register_password"  required="required"/>
+    </div>
+    
+    <div class="form-group">
+        <button class="btn btn-success form-control" type="submit" name="register"><span class="glyphicon glyphicon-log-in"></span> Register</button>
+    </div>
+    
+    <div class="mt-4 text-center">
+        <p style="font-weight: bold; color: #FFF;">Already have an account? <a href="index.php" style="color: #fff; font-weight: bold;">Login here</a>.</p>
+    </div>
+</form>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div>
+<img src="images/scp.jpeg" class="background">
+<div id="footer" style="backround:#12e856;">
+    <label class="footer-title">San Carlos Health Care Management System 2023</label>
+</div>
 </body>
+<?php
+include("../admin/script.php");
+?>
 </html>

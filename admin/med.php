@@ -67,6 +67,7 @@
 					<ul>
 						<li><a href = "admin.php"><i class = "glyphicon glyphicon-cog"></i> Medical Technologist</a></li>
 						<li><a href = "user.php"><i class = "glyphicon glyphicon-cog"></i> Chief Laboratory</a></li>
+						<li><a href="patient_user.php"><i class="glyphicon glyphicon-cog"></i> Patient Account</a></li>
 					</ul>
 				</li>
 				<li><a href="appointment.php"><i class="glyphicon glyphicon-calendar"></i> Appointment</a></li>

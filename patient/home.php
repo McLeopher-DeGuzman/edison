@@ -2,16 +2,14 @@
 <?php
 // Update fullName column
 $conn = new mysqli("localhost", "root", "", "hcpms") or die(mysqli_error());
-$query = $conn->query("SELECT * FROM `patient` WHERE `patient_id` = '$_SESSION[patient_id]'") or die(mysqli_error());
+$query = $conn->query("SELECT * FROM `patient` ORDER BY `patient_id` DESC") or die(mysqli_error());
 $fetch = $query->fetch_array();
 
 // Assuming `fullName` is formatted as "firstname lastname"
-$fullName = $fetch['firstname'] . " " . $fetch['lastname'];
+// $q = $conn->query("SELECT * FROM `itr` ORDER BY `itr_no` DESC") or die(mysqli_error());
 
-// Update fullName column in the database
-$update_query = $conn->query("UPDATE `patient` SET `fullName` = '$fullName' WHERE `patient_id` = '$_SESSION[patient_id]'") or die(mysqli_error());
 ?>
-
+<?php require '../add_patient.php'?>
 <html lang="en">
 <head>
     <title>San Carlos Healthcare Management System 2023</title>
@@ -24,12 +22,17 @@ $update_query = $conn->query("UPDATE `patient` SET `fullName` = '$fullName' WHER
     <style>
         body {
             background-color: #9ADE7B; /* Set your desired background color */
+            margin: 0;
+            padding: 0;
         }
 
         /* You can customize other styles as needed */
         .navbar-default {
             background-color: #508D69; /* Set your desired navbar color */
             border-color: #9ADE7B;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
         }
 
         .navbar-default .navbar-brand {
@@ -42,17 +45,58 @@ $update_query = $conn->query("UPDATE `patient` SET `fullName` = '$fullName' WHER
         }
 
         /* Add more styles as needed */
+        .sidebar {
+            background-color: #508D69;
+            color: #ffffff;
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            padding-top: 70px; /* Adjusted to match navbar height */
+            z-index: 999; /* Ensure sidebar is behind the navbar */
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #ffffff;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #355e46;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding-top: 70px; /* Adjusted to match navbar height */
+            padding-left: 20px;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #508D69;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+        }
     </style>
 </head>
 <body>
-<div class="navbar navbar-default navbar-fixed-top">
+<div class="navbar navbar-default">
     <img src="images/hc.png" style="float:left;" height="55px"/><label class="navbar-brand">San Carlos Health Care
         Management System 2023</label>
     <ul class="nav navbar-right">
         <li class="dropdown">
             <a class="user dropdown-toggle" data-toggle="dropdown" href="#">
                 <span class="glyphicon glyphicon-user"></span>
-                <?php echo $fetch['fullName']?>
+                <?php echo $fetch['first_name']?>  <?php echo $fetch['middle_name']?>  <?php echo $fetch['last_name']?>
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
@@ -63,89 +107,38 @@ $update_query = $conn->query("UPDATE `patient` SET `fullName` = '$fullName' WHER
         </li>
     </ul>
 </div>
-<br/>
-<br/>
-<br/>
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h4>DASHBOARD</h4>
-                </div>
-                <div class="panel-body">
-                    <!-- Add your dashboard content here -->
-                    <p>Welcome, <?php echo $fetch['firstname'] . " " . $fetch['lastname'] ?>!</p>
-                    <!-- You can add more dashboard elements as needed -->
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="well">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <center><label>DENTAL</label></center>
-                    </div>
-                </div>
-                <a href="view_dental_record.php" id="d_record" style="float:right; margin-right:10px;" href=""
-                   class="btn btn-success"><span class="glyphicon glyphicon-book"></span> DENTAL RECORD</a>
-                <br/>
-                <br/>
+
+<div class="sidebar">
+    <br/>
+    <a href="#">Dashboard</a>
+    <a href="../add_appointment.php">Appointment</a>
+    <!-- Add more sidebar links as needed -->
+</div>
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h4>INDIVIDUAL TREATMENT RECORD</h4>
+                        <h4>DASHBOARD</h4>
+                    </div>
+                    <div class="panel-body">
+                        <!-- Add your dashboard content here -->
+                        <p>Welcome, <?php echo $fetch['first_name']?>!</p>
+                        <!-- You can add more dashboard elements as needed -->
                     </div>
                 </div>
-                <br/>
-                <table id="table" class="display" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>ITR No</th>
-                        <th>Name</th>
-                        <th>Birthdate</th>
-                        <th>Age</th>
-                        <th>Address</th>
-                        <th>Civil Status</th>
-                        <th>Gender</th>
-                        <th><center>Action</center></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    $conn = new mysqli("localhost", "root", "", "hcpms") or die(mysqli_error());
-                    $q = $conn->query("SELECT * FROM `itr` ORDER BY `itr_no` DESC") or die(mysqli_error());
-                    while ($f = $q->fetch_array()) {
-                        ?>
-                        <tr>
-                            <td><?php echo $f['itr_no'] ?></td>
-                            <td><?php echo $f['firstname'] . " " . $f['lastname'] ?></td>
-                            <td><?php echo $f['birthdate'] ?></td>
-                            <td><?php echo $f['age'] ?></td>
-                            <td><?php echo $f['address'] ?></td>
-                            <td><?php echo $f['civil_status'] ?></td>
-                            <td><?php echo $f['gender'] ?></td>
-                            <td>
-                                <center>
-                                    <a href="view_dental.php?itr_no=<?php echo $f['itr_no'] ?>"
-                                       class="btn btn-sm btn-info"><span
-                                                class="glyphicon glyphicon-search"></span> VIEW DETAIL</a>
-                                </center>
-                            </td>
-                        </tr>
-                        <?php
-                    }
-                    $conn->close();
-                    ?>
-                    </tbody>
-                </table>
-            </div>
-            <div id="footer">
-                <label class="footer-title">San Carlos Healthcare Management System 2023</label>
             </div>
         </div>
     </div>
 </div>
-<?php require "script.php" ?>
+
+<div class="footer">
+    <label class="footer-title">San Carlos Healthcare Management System 2023</label>
+</div>
+
+<?php require "../script.php" ?>
 <script src="js/add_dental.js"></script>
 </body>
 </html>

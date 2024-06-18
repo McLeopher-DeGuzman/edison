@@ -103,11 +103,11 @@
 						<br />
 						<label style = "font-size:18px;" class = "text-muted"><?php echo $f['phil_health_no']?></label>
 					</div>
-					<div style = "float:left; width:15%;">
+					<!-- <div style = "float:left; width:15%;">
 						<label for = "family_no" style = "font-size:18px;">Family no</label>
 						<br />
 						<label style = "font-size:18px;" class = "text-muted"><?php echo $f['family_no']?></label>
-					</div>	
+					</div>	 -->
 					<br style = "clear:both;" />
 					<hr style = "border:1px dotted #d3d3d3;"/>
 					<div>

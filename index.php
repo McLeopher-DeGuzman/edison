@@ -34,12 +34,12 @@
 <div class="navbar navbar-default navtop">
     <img src="images/hc.png" style="float:left;" height="55px" />
     <label class="navbar-brand">San Carlos Health Care Management System 2023</label>
-    <a href="add_appointment.php" class="btn btn-primary" style="float: right;">Book Appointment</a>
+    <!-- <a href="add_appointment.php" class="btn btn-primary" style="float: right;">Book Appointment</a> -->
 </div>
 <div id="sidelogin">
     <form action="login.php" enctype="multipart/form-data" method="POST" style="">
         <div style="text-align: center;">
-            <label style="margin-left: 5%; color: black; background-color: " class="lbllogin"><h1>LOGIN HERE</h1></label>
+            <label style="margin-left: 5%; color: black; background-color: " class="lbllogin"><h1>LOGIN AS CHIEF LABORATORY</h1></label>
 
         </div>
         <br/>

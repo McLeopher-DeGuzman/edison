@@ -1,30 +1,25 @@
 <?php
-	if(ISSET($_POST['save_patient'])){
-		$itr_no = $_POST['itr_no'];
-		$family_no = $_POST['family_no'];
-		$firstname = $_POST['firstname'];
-		$middlename = $_POST['middlename'];
-		$lastname = $_POST['lastname'];
-		$birthdate = $_POST['month']."/".$_POST['day']."/".$_POST['year'];
-		$age = $_POST['age'];
-		$phil_health_no = $_POST['phil_health_no'];
-		$address = $_POST['address'];
-		$civil_status = $_POST['civil_status'];
-		$gender = $_POST['gender'];
-		$bp = $_POST['bp'];
-		$temp = $_POST['temp']."&deg;C";
-		$pr = $_POST['pr'];
-		$rr = $_POST['rr'];
-		$wt= $_POST['wt']."kg";
-		$ht = $_POST['ht'];
-		$conn = new mysqli("localhost", "root", "", "hcpms") or die(mysqli_error());
-		$q1 = $conn->query("SELECT * FROM `itr` WHERE `itr_no` = '$itr_no'") or die(mysqli_error());
-		$c1 = $q1->num_rows;
-		if($c1 > 0){
-				echo "<script>alert('ITR No. must not be the same!')</script>";
-		}else{
-			$conn->query("INSERT INTO `itr` VALUES('$itr_no', '$family_no', '$phil_health_no', '$firstname', '$middlename', '$lastname', '$birthdate', '$age', '$address', '$civil_status', '$gender', '$bp', '$temp', '$pr', '$rr', '$wt', '".addslashes($ht)."')") or die(mysqli_error());
-			echo ("<script> location.replace('patient.php');</script> </script>");	
-		}
-	}
-	
+    if(isset($_POST['save_patient'])){
+        $first_name = $_POST['first_name'];
+        $middle_name = $_POST['middle_name'];
+        $last_name = $_POST['last_name'];
+        $birthdate = $_POST['year']."-".$_POST['month']."-".$_POST['day']; // Convert to YYYY-MM-DD
+        $address = $_POST['address'];
+        $civil_status = $_POST['civil_status'];
+        $age = $_POST['age'];
+        $gender = $_POST['gender'];
+        $event_date = $_POST['event_date']; // Assuming 'event_date' is the name of your field
+
+        $conn = new mysqli("localhost", "root", "", "hcpms") or die(mysqli_error());
+        
+        // Assuming patient_id is AUTO_INCREMENT, no need to insert it here
+        
+        // You can adjust this part depending on how you handle your database schema
+        $conn->query("INSERT INTO `patient_info` (`first_name`, `middle_name`, `last_name`, `birthdate`, `address`, `civil_status`, `age`, `gender`, `event_date`) 
+                      VALUES ('$first_name', '$middle_name', '$last_name', '$birthdate', '$address', '$civil_status', '$age', '$gender', '$event_date')") 
+                      or die(mysqli_error($conn));
+        
+        echo "<script>alert('Patient information successfully saved!');</script>"; // Move the alert here
+        echo ("<script> location.replace('patient/home.php');</script>");
+    }
+?>

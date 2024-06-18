@@ -64,7 +64,21 @@ ul center{
 	right:20px;
 	padding:10px;
 	border-radius:5px;
-	height:350px;
+	height: 580px;
+	background-color:rgba(235, 245, 239, 0.686);
+	border:1px solid #e7e7e7;
+}
+
+#sidelogin1{
+	margin-right: 23%;
+	width:50%;
+	float:right;
+	position:relative;
+	top:120px;
+	right:20px;
+	padding:10px;
+	border-radius:5px;
+	height: 420px;
 	background-color:rgba(235, 245, 239, 0.686);
 	border:1px solid #e7e7e7;
 }

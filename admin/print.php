@@ -89,9 +89,11 @@
 </head>
 <body>
 <div id="certificateContent">
-<div style="flex: 1;">
-                <img src="images/hc.png" alt="Left Logo" class="left-logo" style="width:100px;">
-            </div>
+
+<div class="logo">
+        <img src="hc.png" alt="Logo" style="width: 100px;">
+    </div>
+          
     <center>Republic of the Philippines</center>
     <center>OFFICE OF THE CITY HEALTH OFFICER</center>
     <center>San Carlos City Pangasinan</center>

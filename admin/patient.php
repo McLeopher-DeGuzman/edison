@@ -67,6 +67,7 @@
 					<ul>
 						<li><a href = "admin.php"><i class = "glyphicon glyphicon-cog"></i> Medical Technologist</a></li>
 						<li><a href = "user.php"><i class = "glyphicon glyphicon-cog"></i> Chief Laboratory</a></li>
+						<li><a href="patient_user.php"><i class="glyphicon glyphicon-cog"></i> Patient Account</a></li>
 					</ul>
 				</li>
 				<li><a href="appointment.php"><i class="glyphicon glyphicon-calendar"></i> Appointment</a></li>
@@ -102,10 +103,10 @@
 						<label for = "itr_no">Individual Treatment Record No:</label>
 						<input class = "form-control" size = "3" min = "0" type = "number" name = "itr_no">
 					</div>
-					<div style = "float:right;" class = "form-inline">
+					<!-- <div style = "float:right;" class = "form-inline">
 						<label for = "family_no">Family no:</label>
 						<input class = "form-control" placeholder = "(Optional)" size = "5" type = "text" name = "family_no">
-					</div>
+					</div> -->
 					<br />
 					<br />
 					<br />
@@ -121,9 +122,9 @@
 					</div>
 					<br />
 					<div class = "form-group">
-						<label for = "birthdate" style = "float:left;">Birthdate:</label>
-						<br style = "clear:both;" />
-						<select name = "month" style = "width:15%; float:left;" class = "form-control" required = "required">
+					<label for="birthdate" style="float:left;">Birthdate:</label>
+<br style="clear:both;" />
+<select name="month" style="width:15%; float:left;" class="form-control" required="required">
 							<option value = "">Select a month</option>
 							<option value = "01">January</option>
 							<option value = "02">February</option>
@@ -138,8 +139,8 @@
 							<option value = "11">November</option>
 							<option value = "12">December</option>
 						</select>
-						<select name = "day" class = "form-control" style = "width:13%; float:left;" required = "required">
-							<option value = "">Select a day</option>
+						<select name="day" class="form-control" style="width:13%; float:left;" required="required">
+    <option value="">Select a day</option>
 							<option value = "01">01</option>
 							<option value = "02">02</option>
 							<option value = "03">03</option>
@@ -156,8 +157,8 @@
 								}
 							?>
 						</select>
-						<select name = "year" class = "form-control" style = "width:13%; float:left;" required = "required">
-							<option value = "">Select a year</option>
+						<select name="year" class="form-control" style="width:13%; float:left;" required="required">
+    <option value="">Select a year</option>
 							<?php
 								$a = date('Y');
 								while(1965 <= $a){
@@ -173,8 +174,8 @@
 						<label for = "address">Address:</label>
 						<input class = "form-control" name = "address" type = "text" required = "required">
 						<br />
-						<label for = "age">Age:</label>
-						<input class = "form-control" style = "width:20%;" min = "0" max = "999" name = "age" type = "number">
+						<label for="age">Age:</label>
+<input class="form-control" style="width:20%;" min="0" max="999" name="age" id="age" type="number" readonly>
 						<br />
 						<label for = "civil_status">Civil Status:</label>
 						<select style = "width:22%;" class = "form-control" name = "civil_status" required = "required">
@@ -218,13 +219,13 @@
 				</form>
 			</div>	
 		</div>	
-		<?php require '../add_patient.php'?>
+		<?php require 'add_patient.php'?>
 		<div class = "panel panel-primary">
 			<div class = "panel-heading">
 				<label>PATIENT'S LIST</Label>
 			</div>
-			<!-- <div class = "panel-body">
-				<button id = "show_itr" class = "btn btn-info"><span class = "glyphicon glyphicon-plus"></span> ADD PATIENT</button> -->
+			<div class = "panel-body">
+				<button id = "show_itr" class = "btn btn-info"><span class = "glyphicon glyphicon-plus"></span> ADD PATIENT</button> 
 				<br />
 				<br />
 				<table id = "table" class = "display" width = "100%" cellspacing = "0">
@@ -270,6 +271,40 @@
 	<div id = "footer">
 		<label class = "footer-title">San Carlos Health Care Management System 2023</label>
 	</div>
+	<script>
+    // Function to calculate age
+    function calculateAge() {
+        var dobYear = document.getElementsByName("year")[0].value;
+        var dobMonth = document.getElementsByName("month")[0].value;
+        var dobDay = document.getElementsByName("day")[0].value;
+
+        if (dobYear && dobMonth && dobDay) {
+            var dob = new Date(dobYear, dobMonth - 1, dobDay);
+            var today = new Date();
+            var age = today.getFullYear() - dob.getFullYear();
+            var monthDiff = today.getMonth() - dob.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+
+            document.getElementById("age").value = age;
+        } else {
+            // Set age to 0 if no birthdate is selected
+            document.getElementById("age").value = 0;
+        }
+    }
+
+    // Add event listeners to call calculateAge function when birthdate fields change
+    var birthdateInputs = document.querySelectorAll('select[name="month"], select[name="day"], select[name="year"]');
+    birthdateInputs.forEach(function(input) {
+        input.addEventListener('change', calculateAge);
+    });
+
+    // Calculate age initially
+    calculateAge();
+</script>
+
+
 <?php include("script.php"); ?>
 <script type = "text/javascript">
     $(document).ready(function() {

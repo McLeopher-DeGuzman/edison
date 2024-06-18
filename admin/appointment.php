@@ -67,6 +67,7 @@
 					<ul>
 						<li><a href = "admin.php"><i class = "glyphicon glyphicon-cog"></i> Medical Technologist</a></li>
 						<li><a href = "user.php"><i class = "glyphicon glyphicon-cog"></i> Chief Laboratory</a></li>
+						<li><a href="patient_user.php"><i class="glyphicon glyphicon-cog"></i> Patient Account</a></li>
 					</ul>
 				</li>
 				<li><a href="appointment.php"><i class="glyphicon glyphicon-calendar"></i> Appointment</a></li>
@@ -237,6 +238,10 @@
 							<th>Age</th>
 							<th>Address</th>
 							<th>Civil Status</th>
+							<th>Date and Time</th>
+							<th>schedule </th>
+							<th>Action</th>
+
 							<!-- <th>Email</th>
 							<th>Password</th> -->
 							<!-- <th><center>Action</center></th> -->
@@ -245,19 +250,29 @@
 					<tbody>
 					<?php
 						$conn = new mysqli("localhost", "root", "", "hcpms") or die(mysqli_error());
-						$query = $conn->query("SELECT * FROM `itr` ORDER BY `itr_no` DESC") or die(mysqli_error());
+						$query = $conn->query("SELECT * FROM `patient_info` ORDER BY `info_id` DESC") or die(mysqli_error());
 						while($fetch = $query->fetch_array()){
-						$id = $fetch['itr_no'];
-						$q = $conn->query("SELECT COUNT(*) as total FROM `complaints` where `itr_no` = '$id' && `status` = 'Pending'") or die(mysqli_error());
+						// $id = $fetch['itr_no'];
+						// $q = $conn->query("SELECT COUNT(*) as total FROM `complaints` where `itr_no` = '$id' && `status` = 'Pending'") or die(mysqli_error());
 						$f = $q->fetch_array();
 					?>
 						<tr>
-							<td><?php echo $fetch['itr_no']?></td>
-							<td><?php echo $fetch['firstname']." ".$fetch['lastname']?></td>
+							<td><?php echo $fetch['info_id']?></td>
+							<td><?php echo $fetch['first_name']." ".$fetch['middle_name']." ".$fetch['last_name']?></td>
 							<td><?php echo $fetch['birthdate']?></td>				
 							<td><?php echo $fetch['age']?></td>				
 							<td><?php echo $fetch['address']?></td>
 							<td><?php echo $fetch['civil_status']?></td>
+							<td><?php echo $fetch['date_time']?></td>
+							<td><?php echo date("F j, Y h:i A", strtotime($fetch['event_date'])); ?></td>
+
+
+							<td>
+    <a href="delete_appointment.php?id=<?php echo $fetch['info_id']; ?>" onclick="return confirm('Are you sure you want to delete this record?');" class="btn btn-sm btn-danger">
+        <i class="glyphicon glyphicon-remove"></i> Delete
+    </a>
+</td>
+
                             <!-- <td><?php echo $fetch['email']?></td>
 							<td><?php echo $fetch['password']?></td> -->
 							<!-- <td><center><a href = "patient.php?id=<?php echo $fetch['itr_no']?>&lastname=<?php echo $fetch['lastname']?>" class = "btn btn-sm btn-info">Book</a>  -->
